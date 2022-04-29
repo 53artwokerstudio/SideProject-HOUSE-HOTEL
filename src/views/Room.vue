@@ -1,6 +1,9 @@
 <template>
 <div class="room-outside flex flex-wrap sm:flex-nowrap text-matcha">
 
+
+  
+
     <div class="room-bg w-full sm:w-2/5 h-full sm:h-screen
                 relative 
                 flex justify-center items-end">
@@ -19,20 +22,20 @@
 
     <div class="room-info px-10 pt-5 sm:pt-28 sm:h-screen sm:overflow-y-scroll sm:scroll-smooth">
         <h2 class="mb-2">Single Room</h2>
-        <p  class="mb-6 font-semibold">1人・ 單人床・ 附早餐・衛浴1間・18平方公尺</p>
+        <p  class="mb-8 font-semibold">1人・ 單人床・ 附早餐・衛浴1間・18平方公尺</p>
 
-        <ul class="mb-6">
+        <ul class="mb-8">
             <li><p>平日假日 1380</p></li>
             <li><p>假日價格 1500</p></li>
         </ul>
       
-        <ul class="mb-6">
+        <ul class="mb-8">
             <li><p>入住時間 15:00 - 21:00</p></li>
             <li><p>退房時間 10:00</p></li>
         </ul>
 
-
-        <ul class="mb-6">
+        
+        <ul class="mb-8">
             <li><p>Deluxe Double Room is reserved for two or three guests.</p></li>
             <li><p>There is a bedroom with a queen size bed and a private bathroom.</p></li>
             <li><p>Everything you need prepared for you: sheets and blankets, towels, soap and shampoo, hairdryer are provided.</p></li>
@@ -56,26 +59,44 @@
         </ul>
 
 
-        <div class="bg-matcha h-96 mb-6"></div>
-
-        <div class="flex justify-center mb-6">
-            <a href="#" 
-            class="bg-matcha text-white text-center py-3 px-24 inline-block border-2 border-white
-                    hover:bg-white hover:text-matcha hover:border-matcha transition">
-            Booking now
-            </a>
+        <div class=" mb-8">
+          <p class="room-title mb-6">Date</p>
+          <vc-calendar  
+          is-expanded
+          color="green"
+          class="border-2 border-matcha"
+          :columns="$screens({ default: 1, lg: 2 })"/>
         </div>
 
+        <div @click="openLightbox =!openLightbox">
+        <bookingButton bookingTitle="Booking Now"/>
+        </div>
 
+    </div>
 
+    <div v-if="openLightbox">
+      <lightbox @clickCloseLightbox="LightboxClose"/>
     </div>
 
 </div>
 </template>
 
 <script>
+import lightbox from "@/components/lightbox.vue";
+import bookingButton from "@/components/bookingbutton.vue";
+
 export default {
-  
+  components:{ lightbox , bookingButton },
+    data() {
+    return {
+        openLightbox: false,
+    }
+},
+methods:{
+    LightboxClose(){
+        this.openLightbox =! this.openLightbox;
+    }
+}
 }
 </script>
 

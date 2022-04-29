@@ -1,9 +1,10 @@
 <template>
   <div id="app">
+
     <div id="nav" class="nav absolute">
         <nav class="nav-outside flex items-center justify-between flex-wrap">
             <div class="nav-logo  flex items-center">
-                <h1>好室旅店。HOUSE HOTEL</h1>
+                <router-link to="/"><h1>好室旅店。HOUSE HOTEL</h1></router-link>
             </div>
             
             <div class="block sm:hidden">
@@ -19,11 +20,11 @@
                 class="w-full sm:flex sm:flex-row-reverse sm:items-center sm:w-auto">
             
                 <div class="nav-roomlist-item sm:flex-grow">
-                    <router-link to="/room"><a href="#responsive-header"> Single Room1 </a></router-link>
-                    <router-link to="/room"><a href="#responsive-header"> Single Room2 </a></router-link>
-                    <router-link to="/room"><a href="#responsive-header"> Single Room3 </a></router-link>
-                    <router-link to="/room"><a href="#responsive-header"> Single Room4 </a></router-link>
-                    <router-link to="/room"><a href="#responsive-header"> Single Room5 </a></router-link>
+                    <router-link to="/room"> Single Room1 </router-link>
+                    <router-link to="/room"> Single Room2 </router-link>
+                    <router-link to="/room"> Single fsfsdf Room3 </router-link>
+                    <router-link to="/room"> Single Room4 </router-link>
+                    <router-link to="/room"> Single Room5 </router-link>
                     
                 </div>
             <div>
@@ -31,18 +32,20 @@
             </div>
         </nav>
     </div>
+
     <router-view />
+    
   </div>
 </template>
 
 <script>
 export default {
     data() {
-        return {
-              	open: false,
-        }
+    return {
+        open: false,
+    }
     },
-      methods: {
+    methods: {
   	toggle() {
     	this.open = !this.open
     }
@@ -55,7 +58,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
@@ -66,6 +68,6 @@ export default {
 .nav-roomlist  {@apply  w-full;}
 .nav-roomlist-item {@apply   text-sm;}
 .nav-roomlist-item a{@apply  block my-8 sm:inline-block sm:my-0 text-white mr-6;}
-.nav-roomlist-item a:last-child {@apply mr-0;}
+
 
 </style>

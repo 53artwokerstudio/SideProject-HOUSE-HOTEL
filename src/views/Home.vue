@@ -19,65 +19,20 @@
                 </div> 
                 
                 <ul class="index-bg-dot flex">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li v-for=" item in bgPic"
+                    :key="item.id" 
+                    @click="changeBgPic(item)"></li>
                 </ul>
             </div>
 
 
-            <ul class="index-roomlist">
-                <!-- 1 -->
-                <li class=" group relative flex items-center justify-center">
-                    <p class="hidden absolute group-hover:inline-block group-hover:z-50"> Single Room</p>
-                    <img src="../assets/img/room5/photo-1501876725168-00c445821c9e.jpeg" 
-                         alt="" srcset=""
-                         class="object-cover overflow-hidden w-full h-full transition opacity-100 group-hover:opacity-20 z-0">
-                </li>
-                <!-- 2 -->
-                <li class=" group relative flex items-center justify-center">
-                    <p class="hidden absolute group-hover:inline-block group-hover:z-50"> Single Room</p>
-                    <img src="../assets/img/room5/photo-1501876725168-00c445821c9e.jpeg" 
-                         alt="" srcset=""
-                         class="object-cover overflow-hidden w-full h-full transition opacity-100 group-hover:opacity-20 z-0">
-                </li>
-                <!-- 3 -->
-                <li class=" group relative flex items-center justify-center">
-                    <p class="hidden absolute group-hover:inline-block group-hover:z-50"> Single Room</p>
-                    <img src="../assets/img/room5/photo-1501876725168-00c445821c9e.jpeg" 
-                         alt="" srcset=""
-                         class="object-cover overflow-hidden w-full h-full transition opacity-100 group-hover:opacity-20 z-0">
-                </li>
-                <!-- 4 -->
-                <li class=" group relative flex items-center justify-center">
-                    <p class="hidden absolute group-hover:inline-block group-hover:z-50"> Single Room</p>
-                    <img src="../assets/img/room5/photo-1501876725168-00c445821c9e.jpeg" 
-                         alt="" srcset=""
-                         class="object-cover overflow-hidden w-full h-full transition opacity-100 group-hover:opacity-20 z-0">
-                </li>
-                <!-- 5 -->
-                <li class=" group relative flex items-center justify-center">
-                    <p class="hidden absolute group-hover:inline-block group-hover:z-50"> Single Room</p>
-                    <img src="../assets/img/room5/photo-1501876725168-00c445821c9e.jpeg" 
-                         alt="" srcset=""
-                         class="object-cover overflow-hidden w-full h-full transition opacity-100 group-hover:opacity-20 z-0">
-                </li>
-                <!-- 6 -->
-                <li class=" group relative flex items-center justify-center">
-                    <p class="hidden absolute group-hover:inline-block group-hover:z-50"> Single Room</p>
-                    <img src="../assets/img/room5/photo-1501876725168-00c445821c9e.jpeg" 
-                         alt="" srcset=""
-                         class="object-cover overflow-hidden w-full h-full transition opacity-100 group-hover:opacity-20 z-0">
-                </li>
-                
-            </ul>
+            <indexRoomlist/>
 
     </div>
 
-    <div class="index-bg w-full h-screen static -z-50 brightness-50">
-        <img src="../assets/img/house/photo-1507149833265-60c372daea22.jpeg" 
-             class="object-cover w-full h-screen "
+    <div class="index-bg w-full h-screen static -z-50">
+        <img :src="NowBgPic"
+             class="object-cover w-full h-screen"
              alt="" 
              srcset="">
     </div>
@@ -88,12 +43,32 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
+import indexRoomlist from "@/components/indexRoomlist.vue";
 
 export default {
   name: "Home",
-  components: {
-
+  components: { indexRoomlist },
+  data() {
+      return {
+          NowBgPic:require('../assets/img/house/photo-1507149833265-60c372daea22.jpeg'),
+          bgPic:[
+              { id: 1,
+                bgPicUrl:require('../assets/img/house/photo-1507149833265-60c372daea22.jpeg')},
+              { id: 2,
+                bgPicUrl:require('../assets/img/house/photo-1551516594-56cb78394645.jpeg')},
+              { id: 3,
+                bgPicUrl:require('../assets/img/house/photo-1549490148-d7304e934d25.jpeg')},
+              { id: 4,
+                bgPicUrl:require('../assets/img/house/photo-1523217582562-09d0def993a6.jpeg')},
+          ]
+      }
+  },
+  methods: {
+      changeBgPic(item){
+          console.log(item);
+          let vm = this;
+          vm.NowBgPic = item.bgPicUrl;
+      }
   },
 };
 </script>
@@ -106,7 +81,4 @@ export default {
 
     .index-bg-dot li {@apply w-3 h-3 rounded-full block border border-white transition  mr-2 bg-transparent hover:bg-white;}
     .index-bg-dot li:last-child {@apply mr-0;}
-    
-    .index-roomlist    {@apply  hidden sm:grid grid-cols-3;}
-    .index-roomlist li {@apply  w-64 h-64 bg-matcha text-center  text-white;}
 </style>
