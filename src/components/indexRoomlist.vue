@@ -3,12 +3,17 @@
         <li class=" group relative flex items-center justify-center"
             v-for="item in roomLists"
             :key="item.id">
+
             <p class="hidden absolute group-hover:inline-block group-hover:z-50"> 
                 {{ item.name }}
             </p>
             <img :src=" item.imageUrl" 
-                    alt="" srcset=""
-                    class="object-cover overflow-hidden w-full h-full transition opacity-100 group-hover:opacity-20 z-0">
+                 @click="$router.push(`/room/${item.id}`)"
+                 alt="" srcset=""
+                 class="object-cover overflow-hidden w-full h-full transition opacity-100 group-hover:opacity-20 z-0">
+            
+            
+        
         </li>
     </ul>
 </template>
@@ -37,7 +42,7 @@ export default {
         axios(config)
         .then(function (response) {
         vm.roomLists = response.data.items;
-        console.log(vm.roomLists);
+        // console.log(vm.roomLists);
         })
         .catch(function (error) {
         console.log(error);

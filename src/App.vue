@@ -19,14 +19,13 @@
             <div :class="open ? 'block': 'hidden'" 
                 class="w-full sm:flex sm:flex-row-reverse sm:items-center sm:w-auto">
             
-                <div class="nav-roomlist-item sm:flex-grow">
-                    <router-link to="/room"> Single Room1 </router-link>
-                    <router-link to="/room"> Single Room2 </router-link>
-                    <router-link to="/room"> Single fsfsdf Room3 </router-link>
-                    <router-link to="/room"> Single Room4 </router-link>
-                    <router-link to="/room"> Single Room5 </router-link>
+                <ul class="nav-roomlist-item sm:flex-grow">
+                    <li v-for="(item) in NavRoomLists"
+                        :key="item.id">
+                        <router-link :to="`/room/${item.id}`">{{ item.name }}</router-link>
+                    </li>
                     
-                </div>
+                </ul>
             <div>
         </div>
             </div>
@@ -34,7 +33,7 @@
     </div>
 
     <router-view />
-    
+
   </div>
 </template>
 
@@ -43,13 +42,44 @@ export default {
     data() {
     return {
         open: false,
+        NavRoomLists:[],
     }
     },
     methods: {
-  	toggle() {
-    	this.open = !this.open
+    getNavRoomLists(){
+    let vm = this;
+    var axios = require('axios');
+
+    var config = {
+    method: 'get',
+    url: 'https://challenge.thef2e.com/api/thef2e2019/stage6/rooms',
+    headers: { 
+        'Accept': 'application/json', 
+        'Authorization': 'Bearer kkc1YuXLPcBEPNQl4iMbEfy0GzRcr05lBLl7lF1iVTjH7EDxgqeyvMEU8lYf'
     }
-  }
+    };
+    
+    axios(config)
+    .then(function (response) {
+    vm.NavRoomLists = response.data.items;
+    console.log(vm.NavRoomLists);
+    })
+    .catch(function (error) {
+    console.log(error);
+    });
+    },
+    toggle() {
+    this.open = !this.open;
+    },
+    },
+    watch: {
+    $route(to, from) {
+    console.log(to , from);
+    this.open = false;
+    }},
+    created() {
+    this.getNavRoomLists();
+    },
 }
 </script>
 
@@ -67,7 +97,7 @@ export default {
 .nav-btn       {@apply   px-3 py-2  text-white ;}
 .nav-roomlist  {@apply  w-full;}
 .nav-roomlist-item {@apply   text-sm;}
-.nav-roomlist-item a{@apply  block my-8 sm:inline-block sm:my-0 text-white mr-6;}
+.nav-roomlist-item li{@apply  block my-8 sm:inline-block sm:my-0 text-white mr-6;}
 
 
 </style>
