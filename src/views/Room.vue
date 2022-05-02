@@ -62,11 +62,12 @@
 
         <div class=" mb-8">
           <p class="room-title mb-6">Date</p>
-          <vc-calendar  
+          <vc-date-picker 
           is-expanded
           color="green"
           class="border-2 border-matcha"
-          :columns="$screens({ default: 1, lg: 2 })"/>
+          :columns="$screens({ default: 1, lg: 2 })"
+          v-model="range" is-range />
         </div>
 
         <div @click="openLightbox =!openLightbox">
@@ -87,7 +88,7 @@ import lightbox from "@/components/lightbox.vue";
 import bookingButton from "@/components/bookingbutton.vue";
 
 export default {
-  components:{ lightbox , bookingButton },
+  components:{  lightbox , bookingButton },
     data() {
     return {
         openLightbox: false,
@@ -95,6 +96,10 @@ export default {
         RoomAmenities: false,
         RoomBgPic: '',
 
+        range: {
+        start: new Date(2022, (5)-1, 3),
+        end: new Date(2022, (5)-1, 5 )},
+        //MONTH-1 因為從0計
     }
 },
 methods:{
@@ -139,6 +144,7 @@ watch: {
 $route(to, from) {
     console.log(to , from);
     this.getRoominfos();
+    console.log(new Date());
 }},
 created() {
 
