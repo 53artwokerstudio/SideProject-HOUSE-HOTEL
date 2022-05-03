@@ -1,9 +1,6 @@
 <template>
 <div class="room-outside flex flex-wrap sm:flex-nowrap text-matcha">
 
-
-  
-
     <div class="room-bg w-full sm:w-2/5 h-96 sm:h-screen overflow-y-hidden
                 relative 
                 flex justify-center items-end">
@@ -77,7 +74,8 @@
     </div>
 
     <div v-if="openLightbox">
-      <lightbox @clickCloseLightbox="LightboxClose"/>
+      <lightbox @clickCloseLightbox="LightboxClose"
+                :roomData="SingleRoomData"/>
     </div>
 
 </div>
@@ -95,6 +93,8 @@ export default {
         SingleRoomData: [],
         RoomAmenities: false,
         RoomBgPic: '',
+        NDPrice:'',
+        HDPrice:'',
 
         range: {
         start: new Date(2022, (5)-1, 3),

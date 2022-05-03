@@ -8,7 +8,8 @@
                 class="w-5 h-5 absolute right-5 top-5 z-10"
                 @click="closeLightbox">
 
-                <RoomReserve/>
+                <RoomReserve
+                :roomData="roomData"/>
 
         </div>
     </div>
@@ -22,6 +23,7 @@ import RoomReserve from "@/components/RoomReserve.vue";
 export default {
 name: "lightbox",
 components:{ RoomReserve},
+props:['roomData'],
 methods:{
 closeLightbox(){
     this.$emit('clickCloseLightbox');

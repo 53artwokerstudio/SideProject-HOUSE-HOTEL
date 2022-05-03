@@ -1,5 +1,6 @@
 <template>
 <div>
+    {{ mathTotalDay }}
 <vc-date-picker v-model="range" 
                 color="green"
                 :masks="masks"
@@ -42,11 +43,11 @@
 <script>
 export default {
 name: "DateRange",
+props: ['parentTotalDay'] ,
 data() {
     return {
         inDay:'',
         outDay:'',
-        totalDays: 0,
       range: {
         start:'',
         end: '',
@@ -81,22 +82,23 @@ data() {
     },
   },
 computed:{
-mathTotalDays(){
-    let vm = this;
-    let inDayTotal = vm.range.start;
-    let outDayTotal = vm.range.end;
-    console.log(typeof inDayTotal);
-    console.log(inDayTotal);
-    console.log(outDayTotal);
-    
-    let totalDays = (outDayTotal - inDayTotal) / (1000 * 60 * 60 * 24); 
+    mathTotalDay(){
+        let vm = this;
+        let inDayTotal = vm.range.start;
+        let outDayTotal = vm.range.end;
+        console.log(typeof inDayTotal);
+        console.log(inDayTotal);
+        console.log(outDayTotal);
+        
+        let totalDays = (outDayTotal - inDayTotal) / (1000 * 60 * 60 * 24); 
 
-    totalDays = Math.ceil(totalDays) 
-    //(計算天數無條件進位)
-    console.log(`總天數${totalDays}日`);
+        totalDays = Math.ceil(totalDays) 
+        //(計算天數無條件進位)
+        console.log(`總天數${totalDays}日`);
 
-    return  totalDays;
-},
+        this.$emit("parentTotalDay",totalDays)
+        return  totalDays;
+    },
 }
 }
 </script>
