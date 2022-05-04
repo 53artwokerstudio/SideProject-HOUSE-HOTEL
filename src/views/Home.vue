@@ -3,7 +3,7 @@
 
     <div class="index-outside relative flex justify-center items-center">
     
-    <div class="index-main absolute z-0 flex items-center">
+    <div class="index-main absolute z-0 flex items-center flex-col sm:flex-row">
             
             <div class="index-info flex flex-col items-center justify-between h-full">
 
@@ -25,9 +25,15 @@
                 </ul>
             </div>
 
+            <div class="flex flex-col items-end">
+              <indexRoomlist/>
 
-            <indexRoomlist/>
-
+              <a href="https://challenge.thef2e.com/user/2232?schedule=3968#works-3968"
+                 target="_blank" rel="noreferrer noopenner"
+                 class="text-white mt-4 opacity-50">
+                 UI DESIGN by Pei-Chuan Li
+              </a>
+            </div>
     </div>
 
     <div class="index-bg w-full h-screen static -z-50">
