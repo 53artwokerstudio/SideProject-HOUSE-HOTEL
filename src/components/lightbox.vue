@@ -9,8 +9,16 @@
                 @click="closeLightbox">
 
                 <RoomReserve
+                v-if="showRoomReserve"
+                @success="ChangeSuccess"
                 :roomData="roomData"
                 :bookingData="bookingData"/>
+
+                <transition appear name="fade">
+                <RoomReserveDone
+                v-if="resultRoomReserve"/>
+                </transition> 
+
 
         </div>
     </div>
@@ -19,15 +27,26 @@
 
 <script>
 import RoomReserve from "@/components/RoomReserve.vue";
+import RoomReserveDone from "@/components/RoomReserveDone.vue";
 
 
 export default {
 name: "lightbox",
-components:{ RoomReserve},
+components:{ RoomReserve ,RoomReserveDone },
 props:['roomData','bookingData'],
+data() {
+    return {
+        showRoomReserve: true,
+        resultRoomReserve: false,
+    }
+},
 methods:{
 closeLightbox(){
     this.$emit('clickCloseLightbox');
+},
+ChangeSuccess(){
+    this.showRoomReserve = false;
+    this.resultRoomReserve = true;
 }
 }
 };

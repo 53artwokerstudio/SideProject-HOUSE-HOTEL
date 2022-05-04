@@ -30,7 +30,7 @@
 
                 <vc-date-picker v-model="range" 
                                 color="green"
-                                :min-date="new Date()"
+                                :min-date="minDate"
                                 :masks="masks"
                                 :model-config="modelConfig"
                                 :disabled-dates="mathDisabledDates"
@@ -67,7 +67,7 @@
 
                 </div>
 
-                <div class="flex justify-between sm:justify-start mb-2">
+                <div class="flex flex-wrap justify-between sm:justify-start mb-2">
                     <p class="mb-2 pr-2"> 預計行程：</p>
                     <p class="mb-2 font-semibold"> 
                         {{ selectDays[0] }} 天，包含
@@ -168,6 +168,12 @@ watch:{
     },
 },
 computed:{
+    minDate(){
+        const today = new Date()
+        const tomorrow = new Date(today)
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        return tomorrow;
+    },
     selectDays () {
     let vm = this;
     let inDayTotal = vm.range.start;
@@ -225,7 +231,6 @@ methods:{
     Booking(){
         let vm = this;
         let roomDataId = vm.roomData.id;
-        console.log(roomDataId);
         let inDayTime = vm.range.start;
         let outDayTime = vm.range.end;
         let addDate = [];
@@ -275,17 +280,19 @@ methods:{
         },
         data:booking,
         };
-        console.log( config );
-
-
+ 
         axios(config)
         .then(function (response) {
         console.log(JSON.stringify(response.data));
-        return;
+        return ;
         })
         .catch(function (error) {
         console.log(error);
+        return ;
         });
+
+        this.$emit('success');
+
     },
 }
 }

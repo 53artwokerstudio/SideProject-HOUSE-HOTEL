@@ -32,7 +32,9 @@
         </nav>
     </div>
 
-    <router-view />
+    <transition appear name="fade" >
+        <router-view />
+    </transition>
 
   </div>
 </template>
@@ -89,6 +91,19 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .25s;
+}
+
+.fade-enter-active {
+  transition-delay: .05s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
 }
 
 .nav           {@apply   z-10 w-full;}

@@ -83,7 +83,6 @@
     </div>
 
 
-
 </div>
 </template>
 
@@ -168,6 +167,7 @@ this.getRoominfos();
 </script>
 
 <style lang="postcss">
+
     .index-roomlist    {@apply  hidden sm:grid grid-cols-3;}
     .index-roomlist li {@apply  w-64 h-64 bg-matcha text-center text-white;}
 
