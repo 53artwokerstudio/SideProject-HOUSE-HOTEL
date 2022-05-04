@@ -1,6 +1,5 @@
 <template>
             <div class="reserve mt-16 mx-8">
-
                 <div class="flex justify-between">
                 <p class="mb-2 font-semibold">姓名</p>
                 <span class="text-red-800 text-right text-xs"
@@ -26,15 +25,15 @@
                         v-model="userTel"
                         class="room_reserve_list_input w-full  p-1  mb-4">
 
-
                 <p class="mb-2 font-semibold">預約日期</p>
                 <div>
 
                 <vc-date-picker v-model="range" 
                                 color="green"
+                                :min-date="new Date()"
                                 :masks="masks"
                                 :model-config="modelConfig"
-                                :attributes="attribute"
+                                :disabled-dates="mathDisabledDates"
                                 is-range>
                 <template v-slot="{ inputValue, inputEvents }">
                     <div class="flex justify-center items-center">
@@ -99,7 +98,7 @@ import bookingButton from "@/components/bookingbutton.vue";
 
 export default {
 name:'RoomReserve',
-props:['roomData'],
+props:['roomData','bookingData'],
 components:{ bookingButton },
 data() {
    return {
@@ -118,10 +117,7 @@ data() {
         dates: { weekdays: [1, 7] } },
     masks: { input: 'YYYY-MM-DD',},
     modelConfig: {  type: 'number', },
-    attribute: [{ 
-        key: 'selectedDay', 
-        highlight: true, 
-        dates: { weekdays: [1, 7] }}],
+    RoomReserveDisabledDates:[],
     }
     },
 watch:{
@@ -172,47 +168,58 @@ watch:{
     },
 },
 computed:{
-      selectDays () {
-        let vm = this;
-        let inDayTotal = vm.range.start;
-        let outDayTotal = vm.range.end;
-        let normalPrice = vm.roomData.normalDayPrice;
-        let holidayPrice = vm.roomData.holidayPrice;
-        let normalDays = 0;
-        let holidayDays = 0;
-        let NDTotal = 0;
-        let HDTotal = 0;
-        let PriceTotal = 0;
-        let selectWeek =[];
-        let selectData;
+    selectDays () {
+    let vm = this;
+    let inDayTotal = vm.range.start;
+    let outDayTotal = vm.range.end;
+    let normalPrice = vm.roomData.normalDayPrice;
+    let holidayPrice = vm.roomData.holidayPrice;
+    let normalDays = 0;
+    let holidayDays = 0;
+    let NDTotal = 0;
+    let HDTotal = 0;
+    let PriceTotal = 0;
+    let selectWeek =[];
+    let selectData;
 
-        let totalDays = (outDayTotal - inDayTotal) / (1000 * 60 * 60 * 24); 
-        totalDays = Math.ceil(totalDays);
+    let totalDays = (outDayTotal - inDayTotal) / (1000 * 60 * 60 * 24); 
+    totalDays = Math.ceil(totalDays);
 
-        for (let index = 0; index < totalDays+1; index++) { 
-        let day = new Date(inDayTotal); 
-        day.setDate(day.getDate() + index);
-        selectWeek.push(day.getDay());
-        };
+    for (let index = 0; index < totalDays+1; index++) { 
+    let day = new Date(inDayTotal); 
+    day.setDate(day.getDate() + index);
+    selectWeek.push(day.getDay());
+    };
 
-        selectWeek.forEach(function(item) {
-            if (item === 0 || item >=5 ){
-                holidayDays += 1;        
-                HDTotal = holidayDays*holidayPrice;
-                return;
-            }else if(item ===! 0 || item >=!5 ){
-                normalDays += 1;
-                NDTotal = normalDays*normalPrice;
-                return;
-            }else{
-                return;
-            }
-        })
-            PriceTotal = NDTotal + HDTotal;
-            selectData = new Array( totalDays, normalDays, holidayDays ,PriceTotal);
+    selectWeek.forEach(function(item) {
+        if (item === 0 || item >=5 ){
+            holidayDays += 1;        
+            HDTotal = holidayDays*holidayPrice;
+            return;
+        }else if(item ===! 0 || item >=!5 ){
+            normalDays += 1;
+            NDTotal = normalDays*normalPrice;
+            return;
+        }else{
+            return;
+        }
+    })
+        PriceTotal = NDTotal + HDTotal;
+        selectData = new Array( totalDays, normalDays, holidayDays ,PriceTotal);
 
-        return selectData;
-        },
+    return selectData;
+    },
+    mathDisabledDates() {
+    let vm = this; 
+    let DisabledDay=[]; 
+
+    vm.bookingData.forEach((item) => {
+        DisabledDay.push(new Date(item.date)); 
+        return;
+    });  
+
+    return DisabledDay;
+    },
     },
 methods:{
     Booking(){

@@ -58,13 +58,16 @@
 
 
         <div class=" mb-8">
-          <p class="room-title mb-6">Date</p>
+          <p class="room-title mb-6" >Date</p>
           <vc-date-picker 
           is-expanded
           color="green"
           class="border-2 border-matcha"
           :columns="$screens({ default: 1, lg: 2 })"
-          v-model="range" is-range />
+          v-model="range" 
+          :min-date="new Date()"
+          :disabled-dates="mathDisabledDates"
+          />
         </div>
 
         <div @click="openLightbox =!openLightbox">
@@ -75,8 +78,11 @@
 
     <div v-if="openLightbox">
       <lightbox @clickCloseLightbox="LightboxClose"
-                :roomData="SingleRoomData"/>
+                :roomData="SingleRoomData"
+                :bookingData="bookingArr"/>
     </div>
+
+
 
 </div>
 </template>
@@ -86,25 +92,36 @@ import lightbox from "@/components/lightbox.vue";
 import bookingButton from "@/components/bookingbutton.vue";
 
 export default {
-  components:{  lightbox , bookingButton },
-    data() {
-    return {
-        openLightbox: false,
-        SingleRoomData: [],
-        RoomAmenities: false,
-        RoomBgPic: '',
-        NDPrice:'',
-        HDPrice:'',
+components:{  lightbox , bookingButton },
+data() {
+return {
+    openLightbox: false,
+    SingleRoomData: [],
+    RoomAmenities: false,
+    RoomBgPic: '',
+    NDPrice:'',
+    HDPrice:'',
 
-        range: {
-        start: new Date(2022, (5)-1, 3),
-        end: new Date(2022, (5)-1, 5 )},
-        //MONTH-1 因為從0計
-    }
+    range: {start:'',end:''},
+    bookingArr :[],
+
+}
+},
+computed:{
+    mathDisabledDates() {
+    let vm = this; 
+    let DisabledDay=[]; 
+
+    vm.bookingArr.forEach((item) => {
+        DisabledDay.push(new Date(item.date)); 
+        return;
+    });  
+
+    return DisabledDay;
+    },
 },
 methods:{
     getRoominfos(){
-        // console.log(this.$route.params.id);
         let vm = this;
         var axios = require('axios');
 
@@ -121,10 +138,7 @@ methods:{
         .then(function (response) {
         vm.SingleRoomData = response.data.room[0];
         vm.RoomBgPic = vm.SingleRoomData.imageUrl[0];
-
-        console.log(vm.SingleRoomData);
-
-
+        vm.bookingArr = response.data.booking;
         return;
         })
         .catch(function (error) {
@@ -144,10 +158,9 @@ watch: {
 $route(to, from) {
     console.log(to , from);
     this.getRoominfos();
-    console.log(new Date());
-}},
+},
+},
 created() {
-
 this.getRoominfos();
 }
 

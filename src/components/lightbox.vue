@@ -9,7 +9,8 @@
                 @click="closeLightbox">
 
                 <RoomReserve
-                :roomData="roomData"/>
+                :roomData="roomData"
+                :bookingData="bookingData"/>
 
         </div>
     </div>
@@ -23,7 +24,7 @@ import RoomReserve from "@/components/RoomReserve.vue";
 export default {
 name: "lightbox",
 components:{ RoomReserve},
-props:['roomData'],
+props:['roomData','bookingData'],
 methods:{
 closeLightbox(){
     this.$emit('clickCloseLightbox');
