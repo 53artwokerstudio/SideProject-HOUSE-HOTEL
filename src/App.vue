@@ -19,15 +19,12 @@
          
             <div :class="open ? 'block': 'hidden'" 
                 class="w-full sm:flex sm:flex-row-reverse sm:items-center sm:w-auto ">
-
-
                 <ul class="nav-roomlist-item sm:flex-row ">
                     <li v-for="(item) in NavRoomLists"
                         :key="item.id">
                         <router-link :to="`/room/${item.id}`">{{ item.name }}</router-link>
                     </li>
                 </ul>
-
             <div>
 
 
@@ -37,7 +34,7 @@
         </nav>
     </div>
 
-    <transition appear name="fade" >
+    <transition name="fade">
         <router-view />
     </transition>
 

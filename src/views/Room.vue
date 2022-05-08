@@ -4,20 +4,25 @@
     <div class="room-bg w-full sm:w-2/5 h-96 sm:h-screen overflow-y-hidden
                 relative 
                 flex justify-center items-end">
-        <img :src="RoomBgPic" 
-        class="object-cover w-full h-full sm:absolute"
+        <img :src="RoomBgPic"
+          @click="CarouselRoomImg"
+        class="object-cover w-full h-full sm:absolute transition-opacity duration-300"
+        :class="ImgOpacity"
         alt="" 
         srcset="">
 
+
         <ul class="room-bg-dot flex absolute mb-4 sm:mb-10">
+
             <li v-for=" (item,i) in SingleRoomData.imageUrl"
                     :key="i" 
                     @click="changeRoomBgPic(item,i)"></li>
+
         </ul>
     </div>
 
     <div class="room-info w-full px-10 pt-5 sm:pt-28 sm:h-screen sm:overflow-y-scroll sm:scroll-smooth">
-        <h2 class="mb-2">{{ SingleRoomData.name }}</h2>
+        <h2 class="mb-2  text-2xl sm:text-4xl ">{{ SingleRoomData.name }}</h2>
         <p  class="mb-8 font-semibold">
             <span>{{ SingleRoomData.descriptionShort.GuestMin }}</span> — 
             <span>{{ SingleRoomData.descriptionShort.GuestMax }}</span>人・ 
@@ -107,6 +112,7 @@ return {
     range: {start:'',end:''},
     bookingArr :[],
 
+    ImgOpacity:'opacity-100',
 }
 },
 computed:{
@@ -120,6 +126,15 @@ computed:{
     });  
 
     return DisabledDay;
+    },
+    CarouselRoomImg(){
+        let vm = this;
+           vm.SingleRoomData.imageUrl.forEach((item,i)=>{
+               setTimeout(() => {                      
+                vm.RoomBgPic = item;
+                }, 2000*i);
+            });
+        return vm;
     },
 },
 methods:{
@@ -147,10 +162,16 @@ methods:{
         console.log(error);
         });
     },
-    changeRoomBgPic(item,i){
-    console.log(item,i);
+    changeRoomBgPic(item){
     let vm = this;
-    vm.RoomBgPic = item;
+        vm.ImgOpacity='opacity-80'
+    setTimeout(() => {
+        vm.RoomBgPic = item;
+        vm.ImgOpacity='opacity-100'
+    },100)
+    
+    
+
     },
     LightboxClose(){
     this.openLightbox =! this.openLightbox;
@@ -178,4 +199,6 @@ this.getRoominfos();
     
     .room-bg-dot li {@apply w-3 h-3 rounded-full block border border-matcha transition hover:bg-matcha active:bg-matcha mr-2;}
     .room-bg-dot li:last-child {@apply mr-0;}
+
+    
 </style>

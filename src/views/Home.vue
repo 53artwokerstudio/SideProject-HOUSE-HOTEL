@@ -36,12 +36,14 @@
             </div>
     </div>
 
+
     <div class="index-bg w-full h-screen static -z-50">
         <img :src="NowBgPic"
              class="object-cover w-full h-screen"
              alt="" 
              srcset="">
     </div>
+
 
 </div>
   </div>
@@ -66,12 +68,11 @@ export default {
                 bgPicUrl:require('../assets/img/house/photo-1549490148-d7304e934d25.jpeg')},
               { id: 4,
                 bgPicUrl:require('../assets/img/house/photo-1523217582562-09d0def993a6.jpeg')},
-          ]
+          ],
       }
   },
   methods: {
       changeBgPic(item){
-          console.log(item);
           let vm = this;
           vm.NowBgPic = item.bgPicUrl;
       }
