@@ -11,10 +11,6 @@ import VCalendar from 'v-calendar';
 import "./assets/css/style.min.css";
 import "./assets/tailwind.css";
 
-
-
-
-
 Vue.config.productionTip = false;
 
 Vue.use( VueAxios , axios)
