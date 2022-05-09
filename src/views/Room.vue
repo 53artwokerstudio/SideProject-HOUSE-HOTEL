@@ -140,6 +140,7 @@ computed:{
 methods:{
     getRoominfos(){
         let vm = this;
+        const ROOMKEY = process.env.VUE_APP_ROOMKEY;
         var axios = require('axios');
 
         var config = {
@@ -147,7 +148,7 @@ methods:{
         url: 'https://challenge.thef2e.com/api/thef2e2019/stage6/room/'+ vm.$route.params.id,
         headers: { 
             'Accept': 'application/json', 
-            'Authorization': 'Bearer kkc1YuXLPcBEPNQl4iMbEfy0GzRcr05lBLl7lF1iVTjH7EDxgqeyvMEU8lYf'
+            'Authorization': ROOMKEY
         }
         };
         

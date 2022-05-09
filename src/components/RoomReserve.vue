@@ -230,6 +230,8 @@ computed:{
 methods:{
     Booking(){
         let vm = this;
+        const ROOMKEY = process.env.VUE_APP_ROOMKEY;
+
         let roomDataId = vm.roomData.id;
         let inDayTime = vm.range.start;
         let outDayTime = vm.range.end;
@@ -276,7 +278,7 @@ methods:{
         method: 'post',
         url: 'https://challenge.thef2e.com/api/thef2e2019/stage6/room/'+ roomDataId,
         headers: { 
-            'Authorization': 'Bearer kkc1YuXLPcBEPNQl4iMbEfy0GzRcr05lBLl7lF1iVTjH7EDxgqeyvMEU8lYf', 
+            'Authorization': ROOMKEY ,
         },
         data:booking,
         };

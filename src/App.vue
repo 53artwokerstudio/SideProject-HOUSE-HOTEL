@@ -50,8 +50,10 @@ export default {
     }
     },
     methods: {
-    getNavRoomLists(){
+    getNavRoomLists(){   
     let vm = this;
+    const ROOMKEY = process.env.VUE_APP_ROOMKEY;
+    
     var axios = require('axios');
 
     var config = {
@@ -59,7 +61,7 @@ export default {
     url: 'https://challenge.thef2e.com/api/thef2e2019/stage6/rooms',
     headers: { 
         'Accept': 'application/json', 
-        'Authorization': 'Bearer kkc1YuXLPcBEPNQl4iMbEfy0GzRcr05lBLl7lF1iVTjH7EDxgqeyvMEU8lYf'
+        'Authorization': ROOMKEY
     }
     };
     

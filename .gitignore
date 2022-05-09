@@ -6,6 +6,11 @@ node_modules
 # local env files
 .env.local
 .env.*.local
+.env.development
+.env.development.local
+.env.production
+.env.production.local
+
 
 # Log files
 npm-debug.log*

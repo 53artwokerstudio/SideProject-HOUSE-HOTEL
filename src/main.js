@@ -11,9 +11,19 @@ import VCalendar from 'v-calendar';
 import "./assets/css/style.min.css";
 import "./assets/tailwind.css";
 
+
+
+
+
 Vue.config.productionTip = false;
 
 Vue.use( VueAxios , axios)
+
+const conf = {
+  baseURL: process.env.VUE_APP_AXIOS_BASEURL,
+};
+axios.create(conf);
+
 
 Vue.use(VCalendar, {
   componentPrefix: 'vc', 
