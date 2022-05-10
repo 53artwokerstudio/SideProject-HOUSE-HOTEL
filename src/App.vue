@@ -117,6 +117,4 @@ export default {
 .nav-roomlist  {@apply  w-full;}
 .nav-roomlist-item {@apply   text-sm;}
 .nav-roomlist-item li{@apply  block my-8 sm:inline-block sm:my-0 text-white mr-6;}
-
-
 </style>
